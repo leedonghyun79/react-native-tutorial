@@ -1,7 +1,24 @@
-import { useState } from "react";
+import { JSX, useState } from "react";
 import { Image, Keyboard, Platform, StyleSheet, TextInput, TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
 
-const AddTodo = () => {
+type AddTodoProps = {
+    onInsert: (text: string) => void;
+}
+
+const platformSelect = (button: JSX.Element, onPress: () => void) => Platform.select({
+    ios: <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
+        {button}
+    </TouchableOpacity>,
+    android: (
+        <View style={styles.circleWrapper}>
+            <TouchableNativeFeedback onPress={onPress}>
+                {button}
+            </TouchableNativeFeedback>
+        </View>
+    )
+})
+
+const AddTodo = ({ onInsert }: AddTodoProps) => {
     const [text, setText] = useState("");
 
     const button = (
@@ -11,6 +28,7 @@ const AddTodo = () => {
     )
 
     const onPress = () => {
+        onInsert(text);
         setText("");
         Keyboard.dismiss();
     }
@@ -25,20 +43,7 @@ const AddTodo = () => {
                 onSubmitEditing={onPress}
                 returnKeyType="done"
             />
-            {
-                Platform.select({
-                    ios: <TouchableOpacity activeOpacity={0.5} onPress={onPress}>
-                        {button}
-                    </TouchableOpacity>,
-                    android: (
-                        <View style={styles.circleWrapper}>
-                            <TouchableNativeFeedback onPress={onPress}>
-                                {button}
-                            </TouchableNativeFeedback>
-                        </View>
-                    )
-                })
-            }
+            {platformSelect(button, onPress)}
         </View>
     )
 }
