@@ -2,7 +2,8 @@ import AddTodo from "@/components/AddTodo";
 import DateHead from "@/components/DateHead";
 import Empty from "@/components/Empty";
 import TodoList from "@/components/TodoLIst";
-import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 import { KeyboardAvoidingView, StyleSheet } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -30,6 +31,39 @@ const App = () => {
       done: false,
     },
   ]);
+
+  // 불러오기 
+  // 불러오기 useEffect는 항상 저장하는 useEffect보다 상위에 위치해야한다.
+  // 만약 불러오기 useEffect가 저장하는 useEffect보다 아래에 위치한다면,
+  // 저장하는 useEffect가 실행되기 전에 불러오기 useEffect가 실행되어
+  // todos가 초기값으로 설정되어 버린다. 즉 초기값만 불러오게 됨 
+
+  useEffect(() => {
+    async function loadTodo() {
+      try {
+        const rawTodos = await AsyncStorage.getItem('todos');
+        const savedTodos = JSON.parse(rawTodos || '[]');
+        setTodos(savedTodos);
+      }
+      catch (error) {
+        console.log("불러오는데 실패했습니다.")
+      }
+    }
+    loadTodo()
+  }, [])
+
+  // 저장
+  useEffect(() => {
+    async function saveTodo() {
+      try {
+        await AsyncStorage.setItem('todos', JSON.stringify(todos));
+      }
+      catch (error) {
+        console.log("저장하는데 실패했습니다.");
+      }
+    }
+    saveTodo();
+  }, [todos])
 
   const onInsert = (text: string) => {
     const nextId = todos.length > 0 ?
