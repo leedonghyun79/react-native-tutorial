@@ -1,8 +1,12 @@
-import { router } from "expo-router"
-import { StyleSheet, View } from "react-native"
-import TransparentCircleButton from "./TransparentCircleButton"
+import { router } from "expo-router";
+import { StyleSheet, View } from "react-native";
+import TransparentCircleButton from "./TransparentCircleButton";
 
-const WriteHeader = () => {
+type WriteHeaderProps = {
+    onSave: () => void;
+}
+
+const WriteHeader = ({ onSave }: WriteHeaderProps) => {
     const onGoBack = () => {
         router.back()
     }
@@ -25,6 +29,7 @@ const WriteHeader = () => {
                 <TransparentCircleButton
                     name="check"
                     color="#009688"
+                    onPress={onSave}
                 />
             </View>
         </View>

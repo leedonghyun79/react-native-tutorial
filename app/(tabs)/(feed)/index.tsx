@@ -1,7 +1,10 @@
 import FloatingWriteButton from '@/components/FloatingWriteButton';
+import LogContext from '@/context/LogContext';
+import { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 const FeedScreen = () => {
+  const { logs } = useContext(LogContext);
   return (
     <View style={styles.block}>
       <FloatingWriteButton />

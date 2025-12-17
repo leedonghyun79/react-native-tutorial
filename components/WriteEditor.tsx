@@ -4,11 +4,11 @@ import { StyleSheet, TextInput, View } from "react-native";
 type WriteEditorProps = {
     title?: string;
     body?: string;
-    onChageTitle?: (title: string) => void;
-    onChageBody?: (body: string) => void;
+    onChangeTitle?: (title: string) => void;
+    onChangeBody?: (body: string) => void;
 }
 
-const WriteEditor = ({ title, body, onChageTitle, onChageBody }: WriteEditorProps) => {
+const WriteEditor = ({ title, body, onChangeTitle, onChangeBody }: WriteEditorProps) => {
     const bodyRef = useRef<TextInput>(null);
     return (
         <View style={styles.block}>
@@ -16,7 +16,7 @@ const WriteEditor = ({ title, body, onChageTitle, onChageBody }: WriteEditorProp
                 placeholder="제목을 입력해주세요"
                 style={styles.titleInput}
                 returnKeyType="next"
-                onChangeText={onChageTitle}
+                onChangeText={onChangeTitle}
                 value={title}
                 onSubmitEditing={() => bodyRef.current?.focus()}
 
@@ -26,7 +26,7 @@ const WriteEditor = ({ title, body, onChageTitle, onChageBody }: WriteEditorProp
                 style={styles.bodyInput}
                 multiline
                 textAlignVertical="top"
-                onChangeText={onChageBody}
+                onChangeText={onChangeBody}
                 value={body}
                 ref={bodyRef}
             />
