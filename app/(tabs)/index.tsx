@@ -5,9 +5,9 @@ import TodoList from "@/components/TodoLIst";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { KeyboardAvoidingView, StyleSheet } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const App = () => {
+export default function HomeScreen() {
   const today = new Date().toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: 'long',
@@ -37,11 +37,11 @@ const App = () => {
   // 만약 불러오기 useEffect가 저장하는 useEffect보다 아래에 위치한다면,
   // 저장하는 useEffect가 실행되기 전에 불러오기 useEffect가 실행되어
   // todos가 초기값으로 설정되어 버린다. 즉 초기값만 불러오게 됨 
-
   useEffect(() => {
     async function loadTodo() {
       try {
         const rawTodos = await AsyncStorage.getItem('todos');
+        console.log("rawTodos: ", rawTodos)
         const savedTodos = JSON.parse(rawTodos || '[]');
         setTodos(savedTodos);
       }
@@ -87,18 +87,13 @@ const App = () => {
   }
 
   return (
-    <>
-      <SafeAreaProvider>
-        <SafeAreaView edges={['bottom']} style={styles.block}>
-          <KeyboardAvoidingView behavior="padding" style={styles.avoid}>
-            <DateHead today={today} />
-            {todos.length === 0 ? <Empty /> : <TodoList todos={todos} onToggle={onToggle} onRemove={onRemove} />}
-            <AddTodo onInsert={onInsert} />
-          </KeyboardAvoidingView>
-        </SafeAreaView>
-
-      </SafeAreaProvider>
-    </>
+    <SafeAreaView edges={['top']} style={styles.block}>
+      <KeyboardAvoidingView behavior="padding" style={styles.avoid}>
+        <DateHead today={today} />
+        {todos.length === 0 ? <Empty /> : <TodoList todos={todos} onToggle={onToggle} onRemove={onRemove} />}
+        <AddTodo onInsert={onInsert} />
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
@@ -106,10 +101,9 @@ const App = () => {
 const styles = StyleSheet.create({
   block: {
     flex: 1,
+    backgroundColor: 'white',
   },
   avoid: {
     flex: 1,
   }
 });
-
-export default App;
