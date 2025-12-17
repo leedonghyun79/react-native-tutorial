@@ -1,4 +1,4 @@
-import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
@@ -7,32 +7,33 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: '#009688',
         headerShown: false,
+        tabBarShowLabel: false,
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="(feed)/index"
         options={{
-          title: '홈',
+          title: 'Feed',
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="home" size={size} color={color} />
+            <Ionicons name="list-outline" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="calendar"
+        name="(calendar)/index"
         options={{
-          title: '달력',
+          title: 'Calendar',
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="date-range" size={size} color={color} />
+            <Ionicons name="calendar-outline" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="(search)/index"
         options={{
-          title: '설정',
+          title: 'Search',
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="settings" size={size} color={color} />
+            <Ionicons name="search-outline" size={size} color={color} />
           ),
         }}
       />

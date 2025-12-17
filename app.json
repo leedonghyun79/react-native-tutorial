@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "react-native-tutorial",
-    "slug": "react-native-tutorial",
+    "name": "diary",
+    "slug": "diary",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "react-native-tutorial",
+    "scheme": "diary",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

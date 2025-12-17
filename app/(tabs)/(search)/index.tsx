@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function SettingsScreen() {
+export default function SearchScreen() {
   return (
     <View style={styles.block}>
-      <Text>Settings</Text>
+      <Text>Search</Text>
     </View>
   );
 }
