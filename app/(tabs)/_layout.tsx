@@ -6,6 +6,7 @@ const TabLayout = () => {
   return (
     <LogContextProvider>
       <Tabs
+        initialRouteName="(feed)/index"
         screenOptions={{
           tabBarActiveTintColor: '#009688',
           headerShown: false,
@@ -22,7 +23,7 @@ const TabLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="(calendar)/index"
+          name="(calendar)/calendar"
           options={{
             title: 'Calendar',
             tabBarIcon: ({ color, size }) => (
@@ -31,7 +32,7 @@ const TabLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="(search)/index"
+          name="(search)/search"
           options={{
             title: 'Search',
             tabBarIcon: ({ color, size }) => (
