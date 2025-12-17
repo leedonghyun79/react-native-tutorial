@@ -2,7 +2,7 @@ import { LogContextProvider } from '@/context/LogContext';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Tabs } from 'expo-router';
 
-export default function TabLayout() {
+const TabLayout = () => {
   return (
     <LogContextProvider>
       <Tabs
@@ -39,7 +39,16 @@ export default function TabLayout() {
             ),
           }}
         />
+        <Tabs.Screen
+          name="write"
+          options={{
+            href: null,
+            title: 'Write',
+          }}
+        />
       </Tabs>
     </LogContextProvider>
   );
 }
+
+export default TabLayout;

@@ -1,8 +1,11 @@
+import FloatingWriteButton from '@/components/FloatingWriteButton';
 import { StyleSheet, View } from 'react-native';
 
-export default function FeedScreen() {
+const FeedScreen = () => {
   return (
-    <View style={styles.block} />
+    <View style={styles.block}>
+      <FloatingWriteButton />
+    </View>
   );
 }
 
@@ -17,3 +20,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   }
 });
+
+export default FeedScreen;

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function SearchScreen() {
+const SearchScreen = () => {
   return (
     <View style={styles.block}>
       <Text>Search</Text>
@@ -15,3 +15,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default SearchScreen;
