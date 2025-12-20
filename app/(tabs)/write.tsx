@@ -18,6 +18,8 @@ const WriteScreen = () => {
       //날짜를 문자열로 변환
       date: new Date().toISOString(),
     });
+    setTitle('');
+    setBody('');
     router.back();
   }
 
@@ -42,7 +44,6 @@ const WriteScreen = () => {
 const styles = StyleSheet.create({
   block: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   avoidingView: {
     flex: 1,

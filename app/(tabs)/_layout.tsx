@@ -9,7 +9,7 @@ const TabLayout = () => {
         initialRouteName="(feed)/index"
         screenOptions={{
           tabBarActiveTintColor: '#009688',
-          headerShown: false,
+          headerShown: true,
           tabBarShowLabel: false,
         }}
       >

@@ -1,3 +1,4 @@
+import FeedList from '@/components/FeedList';
 import FloatingWriteButton from '@/components/FloatingWriteButton';
 import LogContext from '@/context/LogContext';
 import { useContext } from 'react';
@@ -7,6 +8,7 @@ const FeedScreen = () => {
   const { logs } = useContext(LogContext);
   return (
     <View style={styles.block}>
+      <FeedList logs={logs} />
       <FloatingWriteButton />
     </View>
   );
@@ -14,13 +16,9 @@ const FeedScreen = () => {
 
 const styles = StyleSheet.create({
   block: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    padding: 16,
     backgroundColor: '#fff',
+    flex: 1,
+    paddingVertical: 30,
   }
 });
 

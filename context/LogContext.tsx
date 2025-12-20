@@ -20,7 +20,26 @@ const LogContext = createContext<LogContextType>({
 });
 
 export function LogContextProvider({ children }: { children: React.ReactNode }) {
-    const [logs, setLogs] = useState<Log[]>([]);
+    const [logs, setLogs] = useState<Log[]>([
+        {
+            id: uuidv4(),
+            title: '제목 1',
+            body: '내용 1',
+            date: new Date().toISOString(),
+        },
+        {
+            id: uuidv4(),
+            title: '제목 2',
+            body: '내용 2',
+            date: new Date(Date.now() - 1000 * 60 * 3).toISOString(),
+        },
+        {
+            id: uuidv4(),
+            title: '제목 3',
+            body: '내용 3',
+            date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toISOString(),
+        },
+    ]);
 
     const onCreate = ({ title, body, date }: { title: string, body: string, date: string }) => {
         const log = {
