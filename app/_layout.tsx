@@ -1,3 +1,4 @@
+import { LogContextProvider } from '@/context/LogContext';
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -22,9 +23,12 @@ const RootLayout = () => {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <LogContextProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="write" options={{ headerShown: false }} />
+      </Stack>
+    </LogContextProvider>
   );
 }
 
