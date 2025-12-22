@@ -1,4 +1,4 @@
-import { SearchHeader } from '@/components/SearchHeader';
+import SearchHeader from '@/components/SearchHeader';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Tabs } from 'expo-router';
 

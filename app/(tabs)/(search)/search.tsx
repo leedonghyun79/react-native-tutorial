@@ -1,4 +1,4 @@
-import { EmptySearchResult } from '@/components/EmptySearchResult';
+import EmptySearchResult from '@/components/EmptySearchResult';
 import FeedList from '@/components/FeedList';
 import LogContext from '@/context/LogContext';
 import SearchContext from '@/context/SearchContext';

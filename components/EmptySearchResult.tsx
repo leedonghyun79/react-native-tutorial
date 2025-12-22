@@ -5,7 +5,7 @@ const message = {
   EMPTY_KEYWORD: '검색어를 입력해주세요.',
 }
 
-export const EmptySearchResult = ({ type }: { type: 'NOT_FOUNT' | 'EMPTY_KEYWORD' }) => {
+const EmptySearchResult = ({ type }: { type: 'NOT_FOUNT' | 'EMPTY_KEYWORD' }) => {
   return (
     <View style={styles.block}>
       <Text style={styles.text}>{message[type]}</Text>
@@ -24,3 +24,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 })
+
+export default EmptySearchResult;

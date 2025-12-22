@@ -3,7 +3,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useContext } from 'react';
 import { Pressable, StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
 
-export const SearchHeader = () => {
+const SearchHeader = () => {
   const { width } = useWindowDimensions();
   const { keyword, onChangeText } = useContext(SearchContext)
 
@@ -30,3 +30,5 @@ const styles = StyleSheet.create({
   }
 
 })
+
+export default SearchHeader;

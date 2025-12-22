@@ -1,8 +1,8 @@
-import React from 'react';
+import { useCallback } from 'react';
 import { FlatList, NativeScrollEvent, NativeSyntheticEvent, StyleSheet, View } from 'react-native';
 import FeedListItem from './FeedListItem';
 
-const FeedList = ({ logs, onScrolledToBottom }: any) => {
+const FeedList = ({ logs, onScrolledToBottom, ListHeaderComponent }: any) => {
     const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
         if (!onScrolledToBottom) return;
 
@@ -18,15 +18,21 @@ const FeedList = ({ logs, onScrolledToBottom }: any) => {
         }
 
     }
+
+    const renderItem = useCallback(({ item }: { item: any }) => (
+        <FeedListItem log={item} />
+    ), [])
+
     return (
         <FlatList
             data={logs}
-            renderItem={({ item }) => <FeedListItem log={item} />}
+            style={styles.block}
+            renderItem={renderItem}
             keyExtractor={(item) => item.id}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
-            onEndReached={(distanceFromEnd) => console.log("바닥에 가까워짐")}
             onEndReachedThreshold={0.85}
             onScroll={onScroll}
+            ListHeaderComponent={ListHeaderComponent}
         />
     );
 };
