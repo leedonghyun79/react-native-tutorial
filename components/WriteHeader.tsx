@@ -4,9 +4,11 @@ import TransparentCircleButton from "./TransparentCircleButton";
 
 type WriteHeaderProps = {
     onSave: () => void;
+    onAskRemove: () => void;
+    isEditing: boolean;
 }
 
-const WriteHeader = ({ onSave }: WriteHeaderProps) => {
+const WriteHeader = ({ onSave, onAskRemove, isEditing }: WriteHeaderProps) => {
     const onGoBack = () => {
         router.back()
     }
@@ -21,11 +23,16 @@ const WriteHeader = ({ onSave }: WriteHeaderProps) => {
                 />
             </View>
             <View style={styles.buttons}>
-                <TransparentCircleButton
-                    name="delete-forever"
-                    color="#ef5350"
-                    hasMarginRight
-                />
+                {
+                    isEditing && (
+                        <TransparentCircleButton
+                            name="delete-forever"
+                            color="#ef5350"
+                            hasMarginRight
+                            onPress={onAskRemove}
+                        />
+                    )
+                }
                 <TransparentCircleButton
                     name="check"
                     color="#009688"

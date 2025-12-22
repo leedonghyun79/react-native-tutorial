@@ -1,5 +1,6 @@
 import { format, formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale/ko';
+import { router } from 'expo-router';
 import React from 'react';
 import { Platform, Pressable, StyleSheet, Text } from 'react-native';
 
@@ -29,6 +30,11 @@ const truncate = (text: string) => {
 
 const FeedListItem = ({ log }: any) => {
     const { title, body, date } = log;
+
+    const onPress = () => {
+        router.push({ pathname: '/write', params: log });
+    }
+
     return (
         <Pressable
             style={({ pressed }) => [
@@ -36,6 +42,7 @@ const FeedListItem = ({ log }: any) => {
                 Platform.OS === 'ios' && pressed && { backgroundColor: '#efefef' },
             ]}
             android_ripple={{ color: '#efefef' }}
+            onPress={onPress}
         >
             <Text style={styles.date}>{formatDate(date)}</Text>
             <Text style={styles.title}>{title}</Text>
