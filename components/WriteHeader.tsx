@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { ko } from "date-fns/locale/ko";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useReducer } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import TransparentCircleButton from "./TransparentCircleButton";
@@ -14,30 +14,45 @@ type WriteHeaderProps = {
     onChangeDate: (date: Date) => void;
 }
 
+const initialState = {
+    mode: 'date' as 'date' | 'time',
+    visible: false,
+}
+
+function reducer(state: typeof initialState, action: any) {
+    switch (action.type) {
+        case 'open':
+            return {
+                mode: action.mode,
+                visible: true,
+            }
+        case 'close':
+            return {
+                ...state,
+                visible: false,
+            }
+        default:
+            throw new Error("Unhandled action type")
+    }
+}
+
 const WriteHeader = ({ onSave, onAskRemove, isEditing, date, onChangeDate }: WriteHeaderProps) => {
     const onGoBack = () => {
         router.back()
     }
 
-    const [mode, setMode] = useState<'date' | 'time'>('date');
-    const [visible, setVisible] = useState(false);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
-    const onPressDate = () => {
-        setMode('date');
-        setVisible(true);
-    }
-    const onPressTime = () => {
-        setMode('time');
-        setVisible(true);
-    }
+    const open = (mode: 'date' | 'time') => dispatch({ type: 'open', mode })
+    const close = () => dispatch({ type: 'close' })
 
     const onConfirm = (selectedDate: Date) => {
-        setVisible(false);
+        close()
         onChangeDate(selectedDate);
     }
 
     const onCancel = () => {
-        setVisible(false);
+        close()
     }
 
     return (
@@ -65,7 +80,7 @@ const WriteHeader = ({ onSave, onAskRemove, isEditing, date, onChangeDate }: Wri
                 />
             </View>
             <View style={styles.center}>
-                <Pressable onPress={onPressDate}>
+                <Pressable onPress={() => open('date')}>
                     <Text>
                         {format(new Date(date), 'PPP', {
                             locale: ko,
@@ -73,13 +88,13 @@ const WriteHeader = ({ onSave, onAskRemove, isEditing, date, onChangeDate }: Wri
                     </Text>
                 </Pressable>
                 <View style={styles.separator} />
-                <Pressable onPress={onPressTime}>
+                <Pressable onPress={() => open('time')}>
                     <Text>{format(new Date(date), 'p', { locale: ko })}</Text>
                 </Pressable>
             </View>
             <DateTimePickerModal
-                isVisible={visible}
-                mode={mode}
+                isVisible={state.visible}
+                mode={state.mode}
                 onConfirm={onConfirm}
                 onCancel={onCancel}
                 date={date}
