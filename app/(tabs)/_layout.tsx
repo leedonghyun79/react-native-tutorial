@@ -1,3 +1,4 @@
+import { SearchHeader } from '@/components/SearchHeader';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Tabs } from 'expo-router';
 
@@ -38,6 +39,7 @@ const TabLayout = () => {
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="search" size={size} color={color} />
           ),
+          headerTitle: () => <SearchHeader />
         }}
       />
     </Tabs>
