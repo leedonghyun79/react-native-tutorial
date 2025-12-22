@@ -16,38 +16,31 @@ type WriteParams = {
 const WriteScreen = () => {
   const log = useLocalSearchParams<WriteParams>()
 
-  // 편집 모드 확인: log.id가 존재하고 빈 문자열이 아닌 경우
-  const isEditing = !!(log.id && log.id !== '');
-
-  console.log('WriteScreen - log:', log);
-  console.log('WriteScreen - isEditing:', isEditing);
-
   const [title, setTitle] = useState(log?.title ?? '');
   const [body, setBody] = useState(log?.body ?? '');
+  const [date, setDate] = useState(log?.date ? new Date(log.date) : new Date());
 
   const { onCreate, onModify, onRemove } = useContext(LogContext)
+
   const onSave = () => {
-    if (isEditing) {
+    if (log?.id) {
       onModify({
         id: log.id,
-        date: log.date,
+        date: date.toISOString(),
         title,
         body,
       });
-      setTitle('');
-      setBody('');
-      router.back();
     } else {
       onCreate({
         title,
         body,
         //날짜를 문자열로 변환
-        date: new Date().toISOString(),
+        date: date.toISOString(),
       });
-      setTitle('');
-      setBody('');
-      router.back();
     }
+    setTitle('');
+    setBody('');
+    router.back();
   }
 
   const onAskRemove = () => {
@@ -83,7 +76,12 @@ const WriteScreen = () => {
         style={styles.avoidingView}
         behavior="padding"
       >
-        <WriteHeader onSave={onSave} onAskRemove={onAskRemove} isEditing={isEditing} />
+        <WriteHeader
+          onSave={onSave}
+          onAskRemove={onAskRemove}
+          isEditing={!!log?.id}
+          date={date}
+          onChangeDate={setDate} />
         <WriteEditor
           title={title}
           body={body}
